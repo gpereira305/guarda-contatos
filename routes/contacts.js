@@ -30,7 +30,7 @@ router.get('/', auth, async (req, res) => {
 // @description Add new user contact
 // @access      Private
 router.post('/', [auth, [
-    check('name', 'Name is required').not().isEmpty()
+    check('name', 'Nome é obrigatório').not().isEmpty()
 ] ], async (req, res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -68,11 +68,11 @@ router.put('/:id', auth, async (req, res) => {
 
      try {
          let contact = await Contact.findById(req.params.id);
-         if(!contact) return res.status(404).json({ msg: 'Contact not found'});
+         if(!contact) return res.status(404).json({ msg: 'Contato não encontrado'});
 
          // Make sure the user really owns a contact
          if(contact.user.toString() !== req.user.id){
-            return res.status(401).json({ msg: 'Not Authorized!'});
+            return res.status(401).json({ msg: 'Sem autorização!'});
          }
 
          contact = await Contact.findByIdAndUpdate(req.params.id,
@@ -96,15 +96,15 @@ router.put('/:id', auth, async (req, res) => {
 router.delete('/:id', auth, async(req,res) => {
     try {
         let contact = await Contact.findById(req.params.id);
-        if(!contact) return res.status(404).json({ msg: 'Contact not found'});
+        if(!contact) return res.status(404).json({ msg: 'Contato não encontrado'});
 
         // Make sure the user really owns a contact
         if(contact.user.toString() !== req.user.id){
-           return res.status(401).json({ msg: 'Not Authorized!'});
+           return res.status(401).json({ msg: 'Sem autorização!'});
         }
 
         await Contact.findByIdAndRemove(req.params.id);
-        res.json({ msg: 'Contact Removed!'})
+        res.json({ msg: 'Contato Removido'})
         
     } catch (error) {
        console.error(err.message);

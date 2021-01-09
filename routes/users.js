@@ -16,9 +16,9 @@ const User = require('../models/User');
 // @access      Public
 router.post('/',
  [
-     check('name', 'Please add a name').not().isEmpty(),
-     check('email', 'Please include a valid email').isEmail(),
-     check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6})
+     check('name', 'Por favor, adicione um nome').not().isEmpty(),
+     check('email', 'Por favor, inclua um email válido').isEmail(),
+     check('password', 'Por favor, insira uma senha com no mínimo 6 caracteres').isLength({ min: 6})
  ],
   async (req, res) => {
      const errors = validationResult(req);
@@ -30,7 +30,7 @@ router.post('/',
      try {
          let user = await User.findOne({ email});
          if(user){
-             return res.status(400).json({ msg: 'User already exists'}); 
+             return res.status(400).json({ msg: 'Usuário já existe'}); 
          }
 
          user = new User({ name, email, password });

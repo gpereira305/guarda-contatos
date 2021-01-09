@@ -30,7 +30,7 @@ const ContactFilter = () => {
             <input 
                type="text"
                ref={text}
-               placeholder='Filter Contacts...'
+               placeholder='Filtrar Contatos...'
                onChange={onChange}
             />
         </form>

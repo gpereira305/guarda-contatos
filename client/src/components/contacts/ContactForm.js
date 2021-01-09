@@ -61,48 +61,51 @@ const ContactForm = () => {
         <form onSubmit={onSubmit}>
             <h2 
                className='text-primary'>
-               {current ? 'Edit Contact' : 'Add Contact'}
+               {current ? 'Editar Contato' : 'Adicionar Contato'}
             </h2>
             <input 
                type="text"
-               placeholder='Name'
+               placeholder='Nome'
                name='name'
                value={name}
                onChange={onChange}
-             />
+               required 
+              />
             <input 
                type="email"
                placeholder='Email'
                name='email'
                value={email}
                onChange={onChange}
+               required 
              />
             <input 
                type="text"
-               placeholder='Phone'
+               placeholder='WhatsApp'
                name='phone'
                value={phone}
                onChange={onChange}
+               required 
              />
-             <h5>Contact Type</h5>
+             <h5>Tipo de Contato</h5>
              <input 
                type="radio"
                name='type'
                value='personal'
                checked={type === 'personal'}
-               onChange={onChange}
-             /> Personal{' '}
+               onChange={onChange} 
+             /> Pessoal{' '}
              <input 
                type="radio"
                name='type'
                value='professional'
                checked={type === 'professional'}
                onChange={onChange}
-             /> Professional
+             /> Profissional
              <div>
                  <input
                    type='submit'
-                   value={current ? 'Update Contact' : 'Add Contact'}
+                   value={current ? 'Atualizar Contato' : 'Adicionar Contato'}
                    className='btn btn-primary btn-block'
                 />
              </div>
@@ -112,7 +115,7 @@ const ContactForm = () => {
                   className='btn btn-light btn-block'
                   onClick={clearAll}
                >
-                 Clear
+                 Limpar
                </button>
              }
         </form>

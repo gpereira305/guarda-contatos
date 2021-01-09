@@ -6,19 +6,25 @@ import AuthContext from '../../context/auth/authContext';
 
 
 
-const Register = () => {
+const Register = (props) => {
     const alertContext = useContext(AlertContext);
     const authContext = useContext(AuthContext)
 
     const {setAlert} = alertContext;
-    const {register, error, clearErrors} = authContext;
+    const {register, error, clearErrors, isAuthenticated} = authContext;
 
     useEffect(() => {
-        if(error === 'User already exists'){
+        if(isAuthenticated){
+            props.history.push('/');  
+
+        };
+
+        if(error === 'Usuário já existe'){
             setAlert(error, 'danger');
             clearErrors();
         }
-    }, [error])
+        // eslint-disable-next-line 
+    }, [error, isAuthenticated, props.history]);
 
     const [user, setUser] = useState({
         name: '',
@@ -36,9 +42,9 @@ const Register = () => {
     const onSubmit = e => {
         e.preventDefault();
         if(name === '' || email === '' || password === ''){
-            setAlert('Please enter all fields', 'danger')
+            setAlert('Por favor, preencha todos os campos vazios', 'danger')
         }else if(password !== password2){
-            setAlert('Passwords do not match', 'danger')
+            setAlert('Senhas não combinam', 'danger')
         }else{
             register({
                 name, email,password
@@ -49,12 +55,12 @@ const Register = () => {
     return (
         <div className='form-container'>
             <h1>
-                Account {' '}
-                <span className='text-primary'>Register</span>
+                <span className='text-primary'>Registrar Conta</span>
+                 
             </h1>
             <form onSubmit={onSubmit}>
                 <div className='form-group'>
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="name">Nome</label>
                     <input
                       type="text" 
                       name='name'
@@ -64,7 +70,7 @@ const Register = () => {
                     />
                 </div>
                 <div className='form-group'>
-                    <label htmlFor="email">Email Address</label>
+                    <label htmlFor="email">Endereço de Email</label>
                     <input
                       type="email" 
                       name='email'
@@ -74,7 +80,7 @@ const Register = () => {
                     />
                 </div>
                 <div className='form-group'>
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password">Senha</label>
                     <input
                       type="password" 
                       name='password'
@@ -85,7 +91,7 @@ const Register = () => {
                     />
                 </div>
                 <div className='form-group'>
-                    <label htmlFor="password2">Confirm Password</label>
+                    <label htmlFor="password2">Confirmar Senha</label>
                     <input
                       type="password" 
                       name='password2'
@@ -97,7 +103,7 @@ const Register = () => {
                 </div>
                 <input 
                   type="submit" 
-                  value='Register'
+                  value='Registrar'
                   className='
                   btn btn-primary
                   btn-block'    
